@@ -31,7 +31,7 @@ public class SQLiteHelper extends SQLiteOpenHelper
         COLUMN_LASTNAME     = "last_name";
         COLUMN_EMAIL        = "email_address";
         COLUMN_STUDENTNUM   = "student_number";
-        DATABASE_NAME       = "a2.db"; //////////////////////////////////////////////////
+        DATABASE_NAME       = "a2.db"; /////////////i dunno/////////////////////////////////////
         DATABASE_VERSION    = 1;
         DATABASE_CREATE     = "create table " +
                 TABLE + "(" + COLUMN_ID +

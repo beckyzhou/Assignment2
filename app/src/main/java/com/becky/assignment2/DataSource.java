@@ -117,7 +117,7 @@ public class DataSource {
         return (comments);
     }
 
-    private Student cursorToComment(final Cursor cursor)
+    private Student cursorToStudent(final Cursor cursor)
     {
         final Student student;
 
