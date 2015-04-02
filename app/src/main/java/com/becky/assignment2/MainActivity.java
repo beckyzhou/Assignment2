@@ -88,17 +88,7 @@ public class MainActivity extends ActionBarActivity {
         @Override
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
-            EditText f =  (EditText) findViewById(R.id.first);
-            EditText l =  (EditText) findViewById(R.id.last);
-            EditText ea =  (EditText) findViewById(R.id.email);
-            EditText sn =  (EditText) findViewById(R.id.student);
-            try {
-                f.setText(jobject.getString("first_name"));
-                l.setText(jobject.getString("last_name"));
-                ea.setText(jobject.getString("email_address"));
-                sn.setText(jobject.getString("student_number"));
-            } catch (JSONException e) {
-                e.printStackTrace();
+
             }
         }
     }
