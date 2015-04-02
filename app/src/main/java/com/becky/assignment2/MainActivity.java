@@ -1,12 +1,29 @@
 package com.becky.assignment2;
 
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 
 
 public class MainActivity extends ActionBarActivity {
+
+    String URL = "https://api.mongolab.com/api/1/databases/beckyzhou/collections/a2?apiKey=ReayiT-IWVJ2es0gd8m2bxmgGRbKyPgD";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,5 +52,59 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private class getFromMongo extends AsyncTask
+    {
+        String resp;
+        JSONArray jarray;
+        JSONObject jobject;
+
+        @Override
+        protected Object doInBackground(Object[] params) {
+
+            HttpClient client = new DefaultHttpClient();    //
+            HttpResponse response;                          // stores response
+            HttpGet get = new HttpGet(URL);                 // gets the url
+            HttpEntity entity;
+            try {
+                response = client.execute(get);
+                entity = response.getEntity();
+
+                // a json array
+                resp = EntityUtils.toString(entity);
+                jarray = new JSONArray(resp);
+                jobject = jarray.getJSONObject(0);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            EditText f =  (EditText) findViewById(R.id.first);
+            EditText l =  (EditText) findViewById(R.id.last);
+            EditText ea =  (EditText) findViewById(R.id.email);
+            EditText sn =  (EditText) findViewById(R.id.student);
+            try {
+                f.setText(jobject.getString("first_name"));
+                l.setText(jobject.getString("last_name"));
+                ea.setText(jobject.getString("email_address"));
+                sn.setText(jobject.getString("student_number"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void click(View v)
+    {
+        new getFromMongo().execute();
     }
 }
