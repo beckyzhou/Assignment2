@@ -54,7 +54,4 @@
         android:text="CONNECT"
         android:layout_gravity="center_horizontal"/>
 
-
-
-
 </LinearLayout>
