@@ -23,15 +23,15 @@ public class SQLiteHelper extends SQLiteOpenHelper
     private static final int DATABASE_VERSION;
     private static final String DATABASE_CREATE;
 
-    static
-    {
-        TABLE               = "student";
-        COLUMN_ID           = "_id";
-        COLUMN_FIRSTNAME    = "first_name";
+        static
+        {
+            TABLE               = "student";
+            COLUMN_ID           = "_id";
+            COLUMN_FIRSTNAME    = "first_name";
         COLUMN_LASTNAME     = "last_name";
         COLUMN_EMAIL        = "email_address";
         COLUMN_STUDENTNUM   = "student_number";
-        DATABASE_NAME       = "a2.db"; /////////////i dunno/////////////////////////////////////
+        DATABASE_NAME       = "assignment2.db"; /////////////i dunno/////////////////////////////////////
         DATABASE_VERSION    = 1;
         DATABASE_CREATE     = "create table " +
                 TABLE + "(" + COLUMN_ID +
@@ -95,8 +95,8 @@ public class SQLiteHelper extends SQLiteOpenHelper
 
     public void delete(SQLiteHelper dop)
     {
-        SQLiteDatabase SQ = dop.getWritableDatabase();
-        SQ.execSQL("delete  from "+ TABLE);
+        SQLiteDatabase db = dop.getWritableDatabase();
+        db.execSQL("delete from "+ TABLE);
     }
 
 }
