@@ -10,7 +10,8 @@ import android.util.Log;
 /**
  * Created by Becky on 2015-04-01.
  */
-public class SQLiteHelper extends SQLiteOpenHelper {
+public class SQLiteHelper extends SQLiteOpenHelper
+{
 
     public static final String TABLE;
     public static final String COLUMN_ID;
@@ -30,7 +31,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         COLUMN_LASTNAME     = "last_name";
         COLUMN_EMAIL        = "email_address";
         COLUMN_STUDENTNUM   = "student_number";
-        DATABASE_NAME       = ""; //////////////////////////////////////////////////
+        DATABASE_NAME       = "a2.db"; //////////////////////////////////////////////////
         DATABASE_VERSION    = 1;
         DATABASE_CREATE     = "create table " +
                 TABLE + "(" + COLUMN_ID +
@@ -68,26 +69,32 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void putInformation(SQLiteHelper dop, String first, String last, String email, String studentNum) {
-        SQLiteDatabase SQ = dop.getWritableDatabase();
+    public void put(SQLiteHelper dop, String first, String last, String email, String studentNum)
+    {
+        SQLiteDatabase db = dop.getWritableDatabase();
         ContentValues cv = new ContentValues();
+
         cv.put(COLUMN_FIRSTNAME, first);
         cv.put(COLUMN_LASTNAME, last);
         cv.put(COLUMN_EMAIL, email);
         cv.put(COLUMN_STUDENTNUM, studentNum);
-        long k = SQ.insert(TABLE, null, cv);
+
+        long k = db.insert(TABLE, null, cv);
         Log.d("DATABASE", "INSERTED");
     }
 
-    public Cursor getInformation(SQLiteHelper dop) {
-        SQLiteDatabase SQ = dop.getReadableDatabase();
-        String[] columns = { COLUMN_FIRSTNAME, COLUMN_LASTNAME, COLUMN_EMAIL, COLUMN_STUDENTNUM };
-        Cursor CR = SQ.query(TABLE, columns, null, null, null, null, null);
-        return CR;
+    public Cursor get(SQLiteHelper dop)
+    {
+        SQLiteDatabase db = dop.getReadableDatabase();
 
+        String[] columns = { COLUMN_FIRSTNAME, COLUMN_LASTNAME, COLUMN_EMAIL, COLUMN_STUDENTNUM };
+        Cursor cursor = db.query(TABLE, columns, null, null, null, null, null);
+
+        return cursor;
     }
 
-    public void deleteAll(SQLiteHelper dop) {
+    public void delete(SQLiteHelper dop)
+    {
         SQLiteDatabase SQ = dop.getWritableDatabase();
         SQ.execSQL("delete  from "+ TABLE);
     }
